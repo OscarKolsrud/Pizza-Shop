@@ -186,8 +186,8 @@ form.onsubmit = function (evt) {
         for (i = 0; i < cart.length; i++) {
             //Fetch product details
             var itemDtl = itemDetails(cart[i].product);
-            itemDtl.cart.rowid = cart[i].rowid;
-            orderData.order.append(itemDtl);
+            itemDtl.rowid = cart[i].rowid;
+            orderData.order.push(itemDtl);
         }
 
         db.collection("pizza-orders").add(orderData)
@@ -204,10 +204,6 @@ form.onsubmit = function (evt) {
                 //Clear the cart and "reset"
                 sessionStorage.balance = 100000;
                 saveCart([]);
-                buildCart();
-                buildSummaryTable();
-                buildMenu();
-                balanceDOM();
                 console.log('Order finished🎉');
             })
             .catch(function (error) {
