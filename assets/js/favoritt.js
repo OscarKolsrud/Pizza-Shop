@@ -4,7 +4,7 @@ if (typeof (Storage) !== "undefined") {
     //This encodes and saves the favorites
     function saveFavorite(detail) {
         //Since session and local only supports strings we convert to json
-        var jsonValue = JSON.stringify(detail);
+        const jsonValue = JSON.stringify(detail);
 
         localStorage.setItem('favorites', jsonValue);
     }
@@ -12,7 +12,7 @@ if (typeof (Storage) !== "undefined") {
     //This function retrieves and decodes the favorites
     function fetchFavorite() {
         //Fetch the stored favorites in JSON format
-        var jsonValue = localStorage.getItem('favorites');
+        const jsonValue = localStorage.getItem('favorites');
 
         return JSON.parse(jsonValue);
     }
@@ -42,8 +42,8 @@ if (typeof (Storage) !== "undefined") {
     }
 
     function buildFavoriteModalList() {
-        var favorites = fetchFavorite();
-        var favoriteDiv = document.getElementById("favoriteContent");
+        const favorites = fetchFavorite();
+        const favoriteDiv = document.getElementById("favoriteContent");
 
         //For simplicity we start out by clearing the whole list.
         favoriteDiv.innerHTML = '';
@@ -71,7 +71,7 @@ if (typeof (Storage) !== "undefined") {
 
     function updateFavoriteCheckboxes() {
         //Fetch the current favorite list
-        var favorites = fetchFavorite();
+        const favorites = fetchFavorite();
 
         //Loop through all favorite checkboxes and set checkbox status
         for (i = 0; i < favorites.length; i++) {

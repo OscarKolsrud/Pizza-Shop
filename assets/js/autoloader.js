@@ -1,6 +1,18 @@
 //Run the start sequence
 window.onload = function () {
-    saveCart([]);
+    //Init the cart if there is none defined
+    if (!sessionStorage.cart) {
+        saveCart([]);
+    }
+    buildCart();
+
+    //Init a balance if none is defined
+    if (!sessionStorage.balance) {
+        //We store the balance as the lowest denomination of the currency
+        sessionStorage.balance = 100000;
+    }
+
+    //Build other visual elements
     balanceDOM();
     buildMenu();
 

@@ -1,6 +1,3 @@
-//We store the balance as the lowest denomination of the currency
-sessionStorage.balance = 100000;
-
 //This encodes and saves the cart
 function saveCart(cart) {
     //Since session and local only supports strings we convert to json
@@ -55,25 +52,59 @@ function cartValue() {
 
 //This function is responsible for the "banking". If subtractaction pass "true" as second param
 function balanceChange(amount, subtract) {
+    //Ensure the amount is a number
+    const amnt = Number(amount);
+    let currentBalance = Number(sessionStorage.balance);
     //Determine if this is a recharge or a
     if (subtract) {
         //This is a charge (negative)
-        sessionStorage.balance -= amount;
+        currentBalance -= amnt;
     } else {
         //This is a recharge (positive)
-        sessionStorage.balance += amount;
+        currentBalance += amnt;
     }
+
+    //Save the new balance
+    sessionStorage.balance = currentBalance;
 
     //Finish by refreshing the balance in the DOM
     balanceDOM();
+}
+
+function buildCart() {
+    const cart = fetchCart();
+    const cartDiv = document.getElementById("cartContent");
+
+    //For simplicity we start out by clearing the whole list.
+    cartDiv.innerHTML = '';
+
+    if (cart.length === 0) {
+        //There is no cart items. Sad times.
+        cart.innerHTML = "";
+
+        //Since there is no items disable the checkout button
+        document.getElementById('checkoutBtn').disabled = true;
+    } else {
+        //There are favorites. Build the list
+        for (i = 0; i < cart.length; i++) {
+            var html = "<li class='list-group-item d-flex justify-content-between lh-condensed' id='" + cart[i].rowid + "'><div>" +
+                "<h6 class='my-0'><a href='#' class='text-danger text-decoration-none' data-id='" + cart[i].rowid + "' onclick='removeFromCart(this)'>X</a> " + itemDetails(cart[i].product).name + "</h6>" +
+                "<small class='text-muted'>" + itemDetails(cart[i].product).cart_desc +"</small></div>" +
+                "<span class='text-muted'>" + (itemDetails(cart[i].product).price/100).toFixed(2) +"</span>" +
+                "</li>";
+
+            cartDiv.innerHTML += html;
+        }
+
+        //Since there are items enable the checkout button
+        document.getElementById('checkoutBtn').disabled = false;
+    }
 }
 
 function addCart(product) {
     //Fetch the id in the dataset
     var id = product.dataset.id;
 
-    console.log(id);
-    console.log(itemDetails(id))
     //Check if balance covers the cost
     if (sessionStorage.balance >= itemDetails(id).price) {
         //Balance covers cost, continue
@@ -92,14 +123,7 @@ function addCart(product) {
         saveCart(cart);
 
         //Add it to the visual part
-        var html = "<li class='list-group-item d-flex justify-content-between lh-condensed' id='" + uuid + "'><div>" +
-            "<h6 class='my-0'>" + itemDetails(id).name + "</h6>" +
-            "<small class='text-muted'>" + itemDetails(id).cart_desc +"</small></div>" +
-            "<span class='text-muted'>" + (itemDetails(id).price/100).toFixed(2) +"</span></li>";
-
-        var cartContent = document.getElementById("cartContent");
-
-        cartContent.innerHTML += html;
+        buildCart();
 
         //Charge the balance
         balanceChange(itemDetails(id).price, true);
@@ -129,4 +153,35 @@ function addCart(product) {
             document.getElementById(elementID).remove();
         }, 3500);
     }
+}
+
+function removeFromCart(cartItem) {
+    //Fetch the cart
+    var cart = fetchCart();
+    var rowid = cartItem.dataset.id;
+
+    //Loop through the cart looking for an item by that rowid
+    for (i = 0; i < cart.length; i++) {
+        //Find the matching row
+        if (String(rowid) === String(cart[i].rowid)) {
+            //Get the itemvalue to refund
+            const itemDtl = itemDetails(cart[i].product);
+
+            //Refund the customer
+            balanceChange(itemDtl.price, false);
+
+            //Remove from the cart
+            var index = cart.indexOf(cart[i]);
+            if (index > -1) {
+                cart.splice(index, 1);
+            }
+
+            //Save the cart in the session
+            saveCart(cart);
+        }
+    }
+
+    //Rebuild visual cart and balance dom elements
+    buildCart();
+    balanceDOM();
 }

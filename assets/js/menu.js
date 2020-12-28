@@ -5,7 +5,7 @@ var menu = [
         "name": "Ost & Skinke",
         "desc": "Fantastisk pizza toppet med ost og skinke",
         "cart_desc": "Ost, skinke (av svin)",
-        "image": "assets/img/P90.jpg",
+        "image": "assets/img/pizzas/P90.jpg",
         "price": 17800
     },
     {
@@ -13,7 +13,7 @@ var menu = [
         "name": "Skinke & Sjampinjong",
         "desc": "Fantastisk pizza toppet med skinke og sjampinjong",
         "cart_desc": "Ost, skinke (av svin), sjampinjong",
-        "image": "assets/img/P12.jpg",
+        "image": "assets/img/pizzas/P12.jpg",
         "price": 19860
     },
     {
@@ -21,7 +21,7 @@ var menu = [
         "name": "Kjøttboller & Løk",
         "desc": "Fantastisk pizza toppet med kjøttboller og løk",
         "cart_desc": "Ost, kjøttboller, løk",
-        "image": "assets/img/P30.jpg",
+        "image": "assets/img/pizzas/P30.jpg",
         "price": 27150
     },
 ];
