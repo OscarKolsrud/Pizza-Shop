@@ -204,7 +204,7 @@ form.onsubmit = function (evt) {
                     "<h4 class='text-center'>Ordre ref.: " + docRef.id + "</h4>" +
                     "<br>" +
                     "<div class='col text-center'>" +
-                    "<iframe width='560' height='315' src='https://www.youtube.com/embed/CwRttSfnfcc?controls=0' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>" +
+                    "<iframe width='560' height='315' src='https://www.youtube.com/embed/CwRttSfnfcc?controls=1&autoplay=1' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>" +
                     "<br>" +
                     "<button class='btn btn-primary btn-sm mt-3' type='button' onclick='closeCheckout(true);'>Lukk</button>" +
                     "</div>";
