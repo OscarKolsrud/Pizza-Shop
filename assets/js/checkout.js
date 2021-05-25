@@ -208,6 +208,7 @@ form.onsubmit = function (evt) {
                     "<br>" +
                     "<button class='btn btn-primary btn-sm mt-3' type='button' onclick='closeCheckout(true);'>Lukk</button>" +
                     "</div>";
+
                 //Clear the cart and "reset"
                 sessionStorage.balance = 100000;
                 saveCart([]);
