@@ -24,3 +24,5 @@ window.onload = function () {
     buildFavoriteModalList();
     updateFavoriteCheckboxes();
 }
+
+window.showConfetti = false;

@@ -17,12 +17,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
         .container {
             max-width: 960px;
         }
@@ -66,12 +60,13 @@
             animation: confettiRain 5s infinite;
         }
 
-        #checkoutBox{
+        #checkoutBox {
             overflow: hidden !important;
         }
+
     </style>
 </head>
-<body class="bg-light pizza-bg">
+<body class="bg-light pizza-bg" id="confetti-wrapper">
 <div class="container">
     <div class="py-5 text-center">
         <img src="assets/img/pizza-chef.png" alt="Chef" style="max-height: 200px;">
@@ -221,6 +216,7 @@
 <script defer src="assets/js/favoritt.js"></script>
 <script defer src="assets/js/checkout.js"></script>
 <script defer src="assets/js/autoloader.js"></script>
+<script defer src="assets/js/confetti.js"></script>
 <script>
     //Set the current year in the copyright notice
     document.getElementById("year").innerHTML = new Date().getFullYear();
