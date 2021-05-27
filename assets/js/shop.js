@@ -1,3 +1,6 @@
+//Initialize the "kaching" sound
+var errorAudio = new Audio('assets/sound/error.mp3');
+
 //This encodes and saves the cart
 function saveCart(cart) {
     //Since session and local only supports strings we convert to json
@@ -193,6 +196,9 @@ function addonToggle(product) {
             balanceChange(itemDetails(id).price, true);
             product.checked = true;
         } else {
+            //Play the error sound
+            errorAudio.currentTime = 0.5;
+            errorAudio.play();
             alert('Beklager, produktet kunne ikke legges til da saldoen din er for lav');
             product.disabled = true;
             setTimeout(function () {
@@ -241,6 +247,10 @@ function addCart(product) {
             product.classList.remove("btn-success");
         }, 2000);
     } else {
+        //Play the error sound
+        errorAudio.currentTime = 0.5;
+        errorAudio.play();
+
         //Give a visual indication of missing money
         var elementID = UUID();
         var elementHTML = "<div id='" + elementID + "' class='alert alert-danger' role='alert'>Du har ikke nok penger til " + itemDetails(id).name + ". (Mangler: " + ((itemDetails(id).price-sessionStorage.balance)/100).toFixed(2) + " Kr)</div>";
