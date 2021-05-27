@@ -64,12 +64,23 @@
             overflow: hidden !important;
         }
 
+        .logo:hover {
+            transform: scale(1.08);
+            transition-duration: 100ms;
+            transition-timing-function: ease-in-out;
+        }
+
+        .chart {
+            align-content: center;
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="bg-light pizza-bg" id="confetti-wrapper">
 <div class="container">
-    <div class="py-5 text-center">
-        <img src="assets/img/pizza-chef.png" alt="Chef" style="max-height: 200px;">
+    <div class="py-2 text-center">
+        <img src="assets/img/pizza.svg" class="logo" alt="Pizza" style="max-height: 100px;">
     </div>
 
     <div class="row bg-light py-3 big-rounded" id="main-app">
@@ -114,6 +125,28 @@
                 </button>
             </div>
             <div class="modal-body" id="favoriteContent"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Lukk</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for turnover graphs -->
+<div class="modal fade" id="turnoverModal" tabindex="-1" aria-labelledby="turnoverModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="turnoverModalLabel">Omsetningstall</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Lukk</button>
             </div>
@@ -203,6 +236,10 @@
         Min favorittliste
     </button>
     <br>
+    <button type="button" class="btn btn-sm btn-info mb-3" data-toggle="modal" data-target="#turnoverModal" id="turnoverNumberButton">
+        ADMIN: Omsetningstall
+    </button>
+    <br>
     <button type="button" class="btn btn-sm btn-warning mb-3" onclick="cheatRecharge();">
         DEV: Rediger saldo
     </button>
@@ -210,7 +247,10 @@
 </footer>
 <script defer src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script defer src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script defer src="assets/js/init-firebase.js"></script>
+<script defer src="assets/js/turnover.js"></script>
 <script defer src="assets/js/menu.js"></script>
 <script defer src="assets/js/shop.js"></script>
 <script defer src="assets/js/favoritt.js"></script>
